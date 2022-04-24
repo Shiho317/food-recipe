@@ -3,7 +3,13 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString } = require('graphql');
+const { 
+  GraphQLSchema, 
+  GraphQLObjectType, 
+  GraphQLList, 
+  GraphQLInt, 
+  GraphQLString 
+} = require('graphql');
 
 const ItemType = new GraphQLObjectType({
   name: 'ItemType',
@@ -70,10 +76,7 @@ const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     results: {
-      type: new GraphQLList(ItemType),
-      items: {
-        type: ItemType
-      },
+      type: ItemType,
       resolve(parent, args) {
         return axios
           .get('https://tasty.p.rapidapi.com/recipes/list?from=0&size=10', {
@@ -92,7 +95,12 @@ const RootQueryType = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return axios
-          .get(`https://tasty.p.rapidapi.com/recipes/detail?id=${args.id}`)
+          .get(`https://tasty.p.rapidapi.com/recipes/detail?id=${args.id}`, {
+            headers: {
+              'X-RapidAPI-Host': 'tasty.p.rapidapi.com',
+              'X-RapidAPI-Key': process.env.API_KEY
+            }
+          })
           .then(res => res.data)
       }
     }
