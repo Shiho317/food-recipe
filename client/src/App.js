@@ -9,10 +9,10 @@ import {
 import './App.css';
 import Header from './components/Header/Header';
 import RecipeList from './components/Recipes/RecipeList';
-import Recipe from './components/Recipe/Recipe';
 import { GlobalStyle } from './styles/Global.styles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme.styles';
+import RecipeDetails from './components/RecipeDetails/RecipeDetails';
 
 const client = new ApolloClient({
   uri: 'http://localhost:8888/graphql',
@@ -28,7 +28,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path='/' element={<RecipeList/>}/>
-            <Route path='/recipe/:id' element={<Recipe/>}/>
+            <Route path='/recipe/:id' element={<RecipeDetails/>}/>
           </Routes>
         </ThemeProvider>
       </Router>

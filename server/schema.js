@@ -6,9 +6,9 @@ dotenv.config();
 const { 
   GraphQLSchema, 
   GraphQLObjectType, 
-  GraphQLList, 
   GraphQLInt, 
-  GraphQLString 
+  GraphQLString, 
+  GraphQLList
 } = require('graphql');
 
 const ItemType = new GraphQLObjectType({
@@ -36,7 +36,7 @@ const TotaltimeType = new GraphQLObjectType({
 const SectionsType = new GraphQLObjectType({
   name: 'SectionsType',
   fields: () => ({
-    components: { type: ComponentsType }
+    components: { type: new GraphQLList(ComponentsType)}
   })
 })
 
@@ -57,10 +57,10 @@ const TopicsType = new GraphQLObjectType({
 const RecipeType = new GraphQLObjectType({
   name: 'RecipeType',
   fields: () => ({
-    sections: { type: SectionsType },
+    sections: { type: new GraphQLList(SectionsType)},
     name: { type: GraphQLString },
-    topics: { type: TopicsType },
-    instructions: { type: InstructionType }
+    topics: { type: new GraphQLList(TopicsType)},
+    instructions: { type: new GraphQLList(InstructionType)}
   })
 })
 
@@ -75,8 +75,8 @@ const InstructionType = new GraphQLObjectType({
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    results: {
-      type: ItemType,
+    recipes: {
+      type: new GraphQLList(ItemType),
       resolve(parent, args) {
         return axios
           .get('https://tasty.p.rapidapi.com/recipes/list?from=0&size=10', {
@@ -85,7 +85,7 @@ const RootQueryType = new GraphQLObjectType({
               'X-RapidAPI-Key': process.env.API_KEY
             }
           })
-          .then(res => res.data)
+          .then(res => res.data.results)
       }
     },
     item: {

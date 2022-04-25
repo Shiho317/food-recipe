@@ -1,10 +1,11 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { RecipeListWrapper } from './RecipeList.style'
+import { RecipeListWrapper, RecipeWrapper } from './RecipeList.style'
+import Recipe from '../Recipe/Recipe'
 
 const RECIPES_LIST = gql`
   query RecipesList {
-    results {
+    recipes {
       cook_time_minutes
       slug
       video_url
@@ -12,6 +13,9 @@ const RECIPES_LIST = gql`
       name
       thumbnail_url
       num_servings
+      total_time_tier {
+        display_tier
+      }
       id
     }
   }
@@ -28,6 +32,11 @@ const RecipeList = () => {
 
   return (
     <RecipeListWrapper>
+      <RecipeWrapper>
+        {data.recipes.map(recipe => (
+          <Recipe recipe={recipe} key={recipe.id}/>
+        ))}
+      </RecipeWrapper>
     </RecipeListWrapper>
   )
 }
