@@ -13,6 +13,7 @@ import { GlobalStyle } from './styles/Global.styles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme.styles';
 import RecipeDetails from './components/RecipeDetails/RecipeDetails';
+import Footer from './components/Footer/Footer';
 
 const client = new ApolloClient({
   uri: 'http://localhost:8888/graphql',
@@ -30,6 +31,7 @@ function App() {
             <Route path='/' element={<RecipeList/>}/>
             <Route path='/recipe/:id' element={<RecipeDetails/>}/>
           </Routes>
+          <Footer/>
         </ThemeProvider>
       </Router>
     </ApolloProvider>

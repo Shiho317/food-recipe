@@ -12,7 +12,7 @@ const Recipe = ({ recipe }) => {
         </ImageWrap>
         <CardDetails>
           <h3>{recipe.name}</h3>
-          <p><em>Time Needed: </em>{recipe.total_time_tier ? recipe.total_time_tier.display_tier : 'none'}</p>
+          <p><em>Time Needed: </em>{recipe.total_time_tier ? recipe.total_time_tier.display_tier : 'not provided'}</p>
         </CardDetails>
       </Link>
     </RecipeCard>

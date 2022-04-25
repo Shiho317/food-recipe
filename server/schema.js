@@ -36,7 +36,8 @@ const TotaltimeType = new GraphQLObjectType({
 const SectionsType = new GraphQLObjectType({
   name: 'SectionsType',
   fields: () => ({
-    components: { type: new GraphQLList(ComponentsType)}
+    components: { type: new GraphQLList(ComponentsType)},
+    name: { type: GraphQLString }
   })
 })
 
@@ -60,7 +61,9 @@ const RecipeType = new GraphQLObjectType({
     sections: { type: new GraphQLList(SectionsType)},
     name: { type: GraphQLString },
     topics: { type: new GraphQLList(TopicsType)},
-    instructions: { type: new GraphQLList(InstructionType)}
+    instructions: { type: new GraphQLList(InstructionType)},
+    thumbnail_url: { type: GraphQLString },
+    yields: { type: GraphQLString }
   })
 })
 
@@ -91,7 +94,7 @@ const RootQueryType = new GraphQLObjectType({
     item: {
       type: RecipeType,
       args: {
-        id: { type: GraphQLInt }
+        id: { type: GraphQLString }
       },
       resolve(parent, args) {
         return axios

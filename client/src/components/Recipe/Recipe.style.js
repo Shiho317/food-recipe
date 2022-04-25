@@ -8,6 +8,14 @@ export const RecipeCard = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  background: ${props => props.theme.color.orange};
+  box-shadow: 0 0 10px grey;
+  border-radius: 5px;
+
+  &:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+  }
 
   & a{
     text-decoration: none;
